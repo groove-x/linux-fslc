@@ -15,15 +15,6 @@
 		reg = <0x80000000 0x20000000>;
 	};
 
-	backlight_display: backlight-display {
-		compatible = "pwm-backlight";
-		pwms = <&pwm1 0 5000000>;
-		brightness-levels = <0 4 8 16 32 64 128 255>;
-		default-brightness-level = <6>;
-		status = "okay";
-	};
-
-
 	reg_sd1_vmmc: regulator-sd1-vmmc {
 		compatible = "regulator-fixed";
 		regulator-name = "VSD_3V3";
@@ -64,17 +55,6 @@
 		dailink_master: simple-audio-card,codec {
 			sound-dai = <&codec>;
 			clocks = <&clks IMX6UL_CLK_SAI2>;
-		};
-	};
-
-	panel {
-		compatible = "innolux,at043tn24";
-		backlight = <&backlight_display>;
-
-		port {
-			panel_in: endpoint {
-				remote-endpoint = <&display_out>;
-			};
 		};
 	};
 };
@@ -143,27 +123,6 @@
 		compatible = "fsl,mag3110";
 		reg = <0x0e>;
 	};
-};
-
-&lcdif {
-	assigned-clocks = <&clks IMX6UL_CLK_LCDIF_PRE_SEL>;
-	assigned-clock-parents = <&clks IMX6UL_CLK_PLL5_VIDEO_DIV>;
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_lcdif_dat
-		     &pinctrl_lcdif_ctrl>;
-	status = "okay";
-
-	port {
-		display_out: endpoint {
-			remote-endpoint = <&panel_in>;
-		};
-	};
-};
-
-&pwm1 {
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_pwm1>;
-	status = "okay";
 };
 
 &qspi {
@@ -272,6 +231,7 @@
 			MX6UL_PAD_GPIO1_IO05__GPIO1_IO05	0x1b0b0
 			MX6UL_PAD_GPIO1_IO06__GPIO1_IO06	0x1b0b0
 			MX6UL_PAD_GPIO1_IO07__GPIO1_IO07	0x1b0b0
+			MX6UL_PAD_GPIO1_IO08__GPIO1_IO08	0x1b0b0
 		>;
 	};
 
@@ -407,12 +367,6 @@
 			MX6UL_PAD_JTAG_TCK__SAI2_RX_DATA	0x11088
 			MX6UL_PAD_JTAG_TMS__SAI2_MCLK		0x17088
 			MX6UL_PAD_SNVS_TAMPER4__GPIO5_IO04	0x17059
-		>;
-	};
-
-	pinctrl_pwm1: pwm1grp {
-		fsl,pins = <
-			MX6UL_PAD_GPIO1_IO08__PWM1_OUT   0x110b0
 		>;
 	};
 
