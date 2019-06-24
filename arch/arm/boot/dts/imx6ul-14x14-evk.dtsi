@@ -125,6 +125,18 @@
 	};
 };
 
+&pwm1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_pwm1>;
+	status = "okay";
+};
+
+&pwm3 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_pwm3>;
+	status = "okay";
+};
+
 &qspi {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_qspi>;
@@ -230,14 +242,10 @@
 		fsl,pins = <
 			/* R_XSYS_RST_N */
 			MX6UL_PAD_GPIO1_IO03__GPIO1_IO03	0x1b0b0
-			/* RLED */
-			MX6UL_PAD_GPIO1_IO04__GPIO1_IO04	0x1b0b0
 			/* BT_RESET */
 			MX6UL_PAD_GPIO1_IO06__GPIO1_IO06	0x1b0b0
 			/* SW_BUT */
 			MX6UL_PAD_GPIO1_IO07__GPIO1_IO07	0x1b0b0
-			/* GRED */
-			MX6UL_PAD_GPIO1_IO08__GPIO1_IO08	0x1b0b0
 		>;
 	};
 
@@ -387,12 +395,23 @@
 		>;
 	};
 
+	pinctrl_pwm1: pwm1grp {
+		fsl,pins = <
+			MX6UL_PAD_GPIO1_IO08__PWM1_OUT	0x110b0
+		>;
+	};
+
+	pinctrl_pwm3: pwm3grp {
+		fsl,pins = <
+			MX6UL_PAD_GPIO1_IO04__PWM3_OUT	0x110b0
+		>;
+	};
+
 	pinctrl_tsc: tscgrp {
 		fsl,pins = <
 			MX6UL_PAD_GPIO1_IO01__GPIO1_IO01		0xb0
 			MX6UL_PAD_GPIO1_IO02__GPIO1_IO02		0xb0
 			MX6UL_PAD_GPIO1_IO03__GPIO1_IO03		0xb0
-			MX6UL_PAD_GPIO1_IO04__GPIO1_IO04		0xb0
 		>;
 	};
 
